@@ -1,0 +1,42 @@
+<!-- This file shows how to import TensorFlow.js in HTML web page from a load balanced CDN server provided by Google.  -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Intro: Loading TensorFlow.js</title>
+    <!-- Load TensorFlow.js from a local javascript file -->
+    <script src="tf.js"></script>
+    <!-- Script to know the status of TensorFlow.js i.e. if it has been loaded or not. -->
+    <script>
+      <!-- Test code to check if we have loaded TensorFlow.js library successfully or not. -->
+      var tfjsLoaded = 'Yes';
+      try{
+        tf;
+      }
+      catch{
+        tfjsLoaded = 'No';
+      }
+    </script>
+  </head>
+
+  <!-- Print out on the screen the status of TF.js library -->
+  <body>
+    <!-- HTML File Heading. -->
+    <h1 align="center">Loading TensorFlow.js using CDN Server</h1>
+
+    <!-- Create a header with an id associated with it. -->
+    <p align="center" id="tfjs">The TensorFlow.js status will be displayed here. Click button to check library status.</p>
+
+    <!-- Button to check status of TensorFlow.js library that gets executed on clicking the button. -->
+    <p align="center">
+      <button onclick="displayStatus()">Check Status</button>
+    </p>
+
+    <!-- Script to change the HTML content of a h3 element with id="tfjs". -->
+    <script>
+    function displayStatus() {
+      document.getElementById("tfjs").innerHTML = 'Tensorflow.js library loaded successfully ? ' + tfjsLoaded;
+    }
+    </script>
+  </body>
+</html>
