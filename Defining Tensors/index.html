@@ -18,6 +18,17 @@
         tfjsLoaded = 'No';
       }
     </script>
+    <!-- Add style to keep some distance between two columns in table. -->
+    <style>
+    table {
+      border-collapse: separate;
+      border-spacing: 50px 0;
+      }
+
+      td {
+      padding: 10px 0;
+      }
+    </style>
   </head>
 
   <!-- Print out on the screen the status of TF.js library -->
@@ -27,7 +38,7 @@
 
     <!-- Create a header with an id associated with it. -->
     <p align="center" id="tfjs">The TensorFlow.js status will be displayed here. Click button to check library status.</p>
-    <p align="center" id="tfTensor1">If library is loaded successfully, Initialized Tensor output will be shown below.</p>
+    <p align="center" id="tfTensor">If library is loaded successfully, Initialized Tensor output will be shown below.</p>
 
     <!-- Button to check status of TensorFlow.js library that gets executed on clicking the button. -->
     <p align="center">
@@ -49,13 +60,18 @@
     const dataTensorReshaped2 = tf.tensor([0, 0, 255, 255, 127, 127, 255, 255], [2, 2, 2]);
     // Create a simple tensor with random values and pass values and shape as variables to tensor.
     const values = [];
-    for (let i = 0; i<15; i++){
-      values[i] = Math.random(0,100);
+    var min=0;
+    var max=100;
+    for (let i = 0; i<30; i++){
+      values[i] = Math.random(0,100) * (+max - +min) + +min;
     }
-    const shape = [5,3];
-    const dataFromLoop = tf.tensor(values, shape);
+    console.log(values);
+    const shape = [2, 5, 3];
+    // You can add the following (tensor_values, tensor_shape, tensor_datatype)
+    const dataFromLoop = tf.tensor3d(values, shape, 'int32');
+    console.log(dataFromLoop);
     // Inputs and outputs arrays for Showing tensor definition and their outputs.
-    const inputs = ["tf.tensor([1, 2, 3, 4])", "tf.tensor([0, 0, 255, 255], [2, 2])", "tf.tensor([0, 0, 255, 255, 127, 127, 255, 255], [2, 2, 2])", "tf.tensor(values, shape)"];
+    const inputs = ["tf.tensor([1, 2, 3, 4])", "tf.tensor([0, 0, 255, 255], [2, 2])", "tf.tensor([0, 0, 255, 255, 127, 127, 255, 255], [2, 2, 2])", "tf.tensor3d(values, shape)"];
     const outputs = [dataTensor, dataTensorReshaped1, dataTensorReshaped2, dataFromLoop];
 
     function displayStatus() {
@@ -66,15 +82,19 @@
         var row = table.insertRow(0);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
         cell1.innerHTML = "Tensor Definition".bold();
         cell2.innerHTML = "Output".bold();
+        cell3.innerHTML = "Shape".bold();
         // Fill in the table rows and columns with values
-        for (let i = 0; i<4; i++){
+        for (let j = 0; j<4; j++){
           var row = table.insertRow(1);
           var cell1 = row.insertCell(0);
           var cell2 = row.insertCell(1);
-          cell1.innerHTML = inputs[i];
-          cell2.innerHTML = outputs[i].toString();
+          var cell3 = row.insertCell(2);
+          cell1.innerHTML = inputs[j];
+          cell2.innerHTML = outputs[j].toString();
+          cell3.innerHTML = outputs[j].shape.toString();
         }
       }
       else {
