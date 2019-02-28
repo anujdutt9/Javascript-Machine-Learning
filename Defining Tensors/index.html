@@ -1,0 +1,86 @@
+<!-- This file shows how to import TensorFlow.js in HTML web page from a load balanced CDN server provided by Google.  -->
+<!-- If the library is loaded successfully, it also initializes a Tensorflow Tensor and shows that below library status. -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Intro: Loading TensorFlow.js</title>
+    <!-- Load TensorFlow.js from a load balanced CDN server provided by Google -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"></script>
+    <!-- Script to know the status of TensorFlow.js i.e. if it has been loaded or not. -->
+    <script>
+      <!-- Test code to check if we have loaded TensorFlow.js library successfully or not. -->
+      var tfjsLoaded = 'Yes';
+      try{
+        tf;
+      }
+      catch{
+        tfjsLoaded = 'No';
+      }
+    </script>
+  </head>
+
+  <!-- Print out on the screen the status of TF.js library -->
+  <body>
+    <!-- HTML File Heading. -->
+    <h1 align="center">Loading TensorFlow.js using CDN Server</h1>
+
+    <!-- Create a header with an id associated with it. -->
+    <p align="center" id="tfjs">The TensorFlow.js status will be displayed here. Click button to check library status.</p>
+    <p align="center" id="tfTensor1">If library is loaded successfully, Initialized Tensor output will be shown below.</p>
+
+    <!-- Button to check status of TensorFlow.js library that gets executed on clicking the button. -->
+    <p align="center">
+      <button onclick="displayStatus()">Check Status</button>
+    </p>
+
+    <table id="table" align="center">
+      <tr>
+      </tr>
+    </table>
+
+    <!-- Script to change the HTML content of a h3 element with id="tfjs" and "tfTensor". -->
+    <script>
+    // Create simple data tensor
+    const dataTensor = tf.tensor([1,2,3,4]);
+    // Create a simple tensor and reshape it into shape [2,2]
+    const dataTensorReshaped1 = tf.tensor([0, 0, 255, 255], [2, 2]);
+    // Create a simple tensor and reshape it into [2,2,2]
+    const dataTensorReshaped2 = tf.tensor([0, 0, 255, 255, 127, 127, 255, 255], [2, 2, 2]);
+    // Create a simple tensor with random values and pass values and shape as variables to tensor.
+    const values = [];
+    for (let i = 0; i<15; i++){
+      values[i] = Math.random(0,100);
+    }
+    const shape = [5,3];
+    const dataFromLoop = tf.tensor(values, shape);
+    // Inputs and outputs arrays for Showing tensor definition and their outputs.
+    const inputs = ["tf.tensor([1, 2, 3, 4])", "tf.tensor([0, 0, 255, 255], [2, 2])", "tf.tensor([0, 0, 255, 255, 127, 127, 255, 255], [2, 2, 2])", "tf.tensor(values, shape)"];
+    const outputs = [dataTensor, dataTensorReshaped1, dataTensorReshaped2, dataFromLoop];
+
+    function displayStatus() {
+      document.getElementById("tfjs").innerHTML = 'Tensorflow.js library loaded successfully ? ' + tfjsLoaded;
+      if (tfjsLoaded == "Yes"){
+        // Set the Table Column Heading Names
+        var table = document.getElementById("table");
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = "Tensor Definition".bold();
+        cell2.innerHTML = "Output".bold();
+        // Fill in the table rows and columns with values
+        for (let i = 0; i<4; i++){
+          var row = table.insertRow(1);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = inputs[i];
+          cell2.innerHTML = outputs[i].toString();
+        }
+      }
+      else {
+        document.getElementById("tfTensor1").innerHTML = "Unable to define Tensor without loading TF.js library.";
+      }
+    }
+    </script>
+  </body>
+</html>
