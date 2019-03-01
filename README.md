@@ -1,5 +1,11 @@
 # Javascript-Machine-Learning
 
+# Requirements
+
+**1.** A laptop/phone with a web browser.
+
+**2.** Basic understanding of Javascript & HTML.
+
 | S.No. |     File Name   |                       Description                         |   Status    |
 | ----- | --------------- | --------------------------------------------------------- | ----------- |
 |  1.   | Loading TensorFlow.js library| Contains code to load TensorFlow.js library from Online (using CDN) as well as Offline. | Completed |
