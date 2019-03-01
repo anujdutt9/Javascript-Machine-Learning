@@ -52,6 +52,7 @@
 
     <!-- Script to change the HTML content of a h3 element with id="tfjs" and "tfTensor". -->
     <script>
+    // ***********************************************************
     // Create a 2D tensor.
     const dataTensor = tf.tensor2d([2, 4, 6, 8], [2,2], 'int32');
 
@@ -71,7 +72,8 @@
     // Matrix Multiplication using matMul
     const c = dataTensor.transpose();
     const mat_Mul = c.matMul(a);
-
+    // ***********************************************************
+      
     // Inputs and outputs arrays for Showing tensor definition and their outputs.
     const inputs = ["dataTensor = tf.tensor([1, 2, 3, 4], [2,2], 'int32')", "dataTensor.dataSync()", "tf.variable(dataTensor)", "a = dataTensor", "b = dataTensor.mul(tf.cast(2, 'int32'))",
   "c = dataTensor.transpose()", "a_plus_b = a.add(b)", "mat_Mul = c.matMul(a)"];
