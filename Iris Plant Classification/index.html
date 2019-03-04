@@ -1,0 +1,157 @@
+<!-- This file shows how to import TensorFlow.js in HTML web page from a load balanced CDN server provided by Google.  -->
+<!-- This project shows how to do Iris Plant Classification using TensorFlow.js -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Linear Regression using TensorFlow.js</title>
+    <!-- ********************************************************************* -->
+    <!-- Load TensorFlow.js from a load balanced CDN server provided by Google. -->
+    <!-- Loading P5.js and P5.dom.js libraries for interactive Visualizations. -->
+    <!-- ********************************************************************* -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"></script>
+    <!-- <script src="sketch.js"></script> -->
+
+    <!-- Script to know the status of TensorFlow.js i.e. if it has been loaded or not. -->
+    <script>
+      // Test code to check if we have loaded TensorFlow.js library successfully or not.
+      var tfjsLoaded = 'Yes';
+      try{
+        tf;
+      }
+      catch{
+        tfjsLoaded = 'No';
+      }
+    </script>
+  </head>
+
+  <!-- Print out on the screen the status of TF.js library -->
+  <body>
+    <!-- HTML File Heading. -->
+    <h1 align="center">Iris Plant Classification using TensorFlow.js</h1>
+
+    <!-- Create a header with an id associated with it. -->
+    <p align="center" id="tfjs">The TensorFlow.js status will be displayed here. Click button to check library status.</p>
+
+    <!-- Button to check status of TensorFlow.js library that gets executed on clicking the button. -->
+    <p align="center">
+      <button onclick="displayStatus()">Check Status</button>
+    </p>
+
+    <table id="table" align="center">
+      <tr>
+      </tr>
+    </table>
+
+    <!-- Script to change the HTML content of a h3 element with id="tfjs". -->
+    <script>
+    function displayStatus() {
+      document.getElementById("tfjs").innerHTML = 'Tensorflow.js library loaded successfully ? ' + tfjsLoaded;
+    }
+
+    // ******************************************
+    // Load and Process Training and Test Dataset
+    // ******************************************
+    // Training Dataset
+    let train_data = [{"sepal_length": 5.6, "sepal_width": 2.7, "petal_length": 4.2, "petal_width": 1.3, "species": 1}, {"sepal_length": 7.7, "sepal_width": 3.0, "petal_length": 6.1, "petal_width": 2.3, "species": 2}, {"sepal_length": 5.1, "sepal_width": 3.7, "petal_length": 1.5, "petal_width": 0.4, "species": 0}, {"sepal_length": 4.6, "sepal_width": 3.6, "petal_length": 1.0, "petal_width": 0.2, "species": 0}, {"sepal_length": 4.7, "sepal_width": 3.2, "petal_length": 1.6, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.7, "sepal_width": 3.0, "petal_length": 5.0, "petal_width": 1.7, "species": 1}, {"sepal_length": 5.6, "sepal_width": 3.0, "petal_length": 4.5, "petal_width": 1.5, "species": 1}, {"sepal_length": 4.3, "sepal_width": 3.0, "petal_length": 1.1, "petal_width": 0.1, "species": 0}, {"sepal_length": 7.1, "sepal_width": 3.0, "petal_length": 5.9, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.8, "sepal_width": 2.7, "petal_length": 4.1, "petal_width": 1.0, "species": 1}, {"sepal_length": 4.9, "sepal_width": 3.1, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.1, "sepal_width": 2.5, "petal_length": 3.0, "petal_width": 1.1, "species": 1}, {"sepal_length": 5.6, "sepal_width": 2.5, "petal_length": 3.9, "petal_width": 1.1, "species": 1}, {"sepal_length": 5.1, "sepal_width": 3.3, "petal_length": 1.7, "petal_width": 0.5, "species": 0}, {"sepal_length": 5.8, "sepal_width": 2.7, "petal_length": 5.1, "petal_width": 1.9, "species": 2}, {"sepal_length": 5.0, "sepal_width": 3.6, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 4.9, "sepal_width": 2.4, "petal_length": 3.3, "petal_width": 1.0, "species": 1}, {"sepal_length": 6.7, "sepal_width": 2.5, "petal_length": 5.8, "petal_width": 1.8, "species": 2}, {"sepal_length": 5.8, "sepal_width": 2.6, "petal_length": 4.0, "petal_width": 1.2, "species": 1}, {"sepal_length": 4.9, "sepal_width": 3.6, "petal_length": 1.4, "petal_width": 0.1, "species": 0}, {"sepal_length": 5.1, "sepal_width": 3.4, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.1, "sepal_width": 3.0, "petal_length": 4.6, "petal_width": 1.4, "species": 1}, {"sepal_length": 4.6, "sepal_width": 3.4, "petal_length": 1.4, "petal_width": 0.3, "species": 0}, {"sepal_length": 6.4, "sepal_width": 3.2, "petal_length": 4.5, "petal_width": 1.5, "species": 1}, {"sepal_length": 7.7, "sepal_width": 2.6, "petal_length": 6.9, "petal_width": 2.3, "species": 2}, {"sepal_length": 6.3, "sepal_width": 3.4, "petal_length": 5.6, "petal_width": 2.4, "species": 2}, {"sepal_length": 5.4, "sepal_width": 3.0, "petal_length": 4.5, "petal_width": 1.5, "species": 1}, {"sepal_length": 5.8, "sepal_width": 4.0, "petal_length": 1.2, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.0, "sepal_width": 2.9, "petal_length": 4.5, "petal_width": 1.5, "species": 1}, {"sepal_length": 4.6, "sepal_width": 3.1, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.8, "sepal_width": 2.7, "petal_length": 5.1, "petal_width": 1.9, "species": 2}, {"sepal_length": 6.9, "sepal_width": 3.2, "petal_length": 5.7, "petal_width": 2.3, "species": 2}, {"sepal_length": 6.0, "sepal_width": 3.4, "petal_length": 4.5, "petal_width": 1.6, "species": 1}, {"sepal_length": 6.2, "sepal_width": 3.4, "petal_length": 5.4, "petal_width": 2.3, "species": 2}, {"sepal_length": 6.6, "sepal_width": 2.9, "petal_length": 4.6, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.3, "sepal_width": 3.3, "petal_length": 6.0, "petal_width": 2.5, "species": 2}, {"sepal_length": 4.7, "sepal_width": 3.2, "petal_length": 1.3, "petal_width": 0.2, "species": 0}, {"sepal_length": 4.8, "sepal_width": 3.0, "petal_length": 1.4, "petal_width": 0.3, "species": 0}, {"sepal_length": 4.9, "sepal_width": 3.1, "petal_length": 1.5, "petal_width": 0.1, "species": 0}, {"sepal_length": 6.5, "sepal_width": 2.8, "petal_length": 4.6, "petal_width": 1.5, "species": 1}, {"sepal_length": 4.6, "sepal_width": 3.2, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.1, "sepal_width": 3.8, "petal_length": 1.6, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.0, "sepal_width": 3.4, "petal_length": 1.6, "petal_width": 0.4, "species": 0}, {"sepal_length": 7.4, "sepal_width": 2.8, "petal_length": 6.1, "petal_width": 1.9, "species": 2}, {"sepal_length": 5.2, "sepal_width": 3.5, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.4, "sepal_width": 3.4, "petal_length": 1.7, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.0, "sepal_width": 3.0, "petal_length": 4.8, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.2, "sepal_width": 2.8, "petal_length": 4.8, "petal_width": 1.8, "species": 2}, {"sepal_length": 4.8, "sepal_width": 3.1, "petal_length": 1.6, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.0, "sepal_width": 3.2, "petal_length": 1.2, "petal_width": 0.2, "species": 0}, {"sepal_length": 7.2, "sepal_width": 3.2, "petal_length": 6.0, "petal_width": 1.8, "species": 2}, {"sepal_length": 7.2, "sepal_width": 3.6, "petal_length": 6.1, "petal_width": 2.5, "species": 2}, {"sepal_length": 5.7, "sepal_width": 2.5, "petal_length": 5.0, "petal_width": 2.0, "species": 2}, {"sepal_length": 4.8, "sepal_width": 3.4, "petal_length": 1.9, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.7, "sepal_width": 2.6, "petal_length": 3.5, "petal_width": 1.0, "species": 1}, {"sepal_length": 6.8, "sepal_width": 3.2, "petal_length": 5.9, "petal_width": 2.3, "species": 2}, {"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.3, "species": 0}, {"sepal_length": 4.8, "sepal_width": 3.0, "petal_length": 1.4, "petal_width": 0.1, "species": 0}, {"sepal_length": 6.0, "sepal_width": 2.2, "petal_length": 5.0, "petal_width": 1.5, "species": 2}, {"sepal_length": 6.4, "sepal_width": 2.8, "petal_length": 5.6, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.7, "sepal_width": 4.4, "petal_length": 1.5, "petal_width": 0.4, "species": 0}, {"sepal_length": 6.1, "sepal_width": 2.8, "petal_length": 4.0, "petal_width": 1.3, "species": 1}, {"sepal_length": 5.7, "sepal_width": 3.8, "petal_length": 1.7, "petal_width": 0.3, "species": 0}, {"sepal_length": 4.9, "sepal_width": 2.5, "petal_length": 4.5, "petal_width": 1.7, "species": 2}, {"sepal_length": 7.7, "sepal_width": 3.8, "petal_length": 6.7, "petal_width": 2.2, "species": 2}, {"sepal_length": 4.4, "sepal_width": 3.0, "petal_length": 1.3, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.3, "sepal_width": 2.9, "petal_length": 5.6, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.3, "sepal_width": 3.3, "petal_length": 4.7, "petal_width": 1.6, "species": 1}, {"sepal_length": 6.9, "sepal_width": 3.1, "petal_length": 4.9, "petal_width": 1.5, "species": 1}, {"sepal_length": 6.7, "sepal_width": 3.3, "petal_length": 5.7, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.0, "sepal_width": 3.4, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.9, "sepal_width": 3.1, "petal_length": 5.4, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.2, "sepal_width": 3.4, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.7, "sepal_width": 2.8, "petal_length": 4.1, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.3, "sepal_width": 2.8, "petal_length": 5.1, "petal_width": 1.5, "species": 2}, {"sepal_length": 5.5, "sepal_width": 3.5, "petal_length": 1.3, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.0, "sepal_width": 2.2, "petal_length": 4.0, "petal_width": 1.0, "species": 1}, {"sepal_length": 4.4, "sepal_width": 2.9, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.7, "sepal_width": 3.1, "petal_length": 5.6, "petal_width": 2.4, "species": 2}, {"sepal_length": 6.1, "sepal_width": 2.8, "petal_length": 4.7, "petal_width": 1.2, "species": 1}, {"sepal_length": 7.6, "sepal_width": 3.0, "petal_length": 6.6, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.7, "sepal_width": 3.3, "petal_length": 5.7, "petal_width": 2.5, "species": 2}, {"sepal_length": 7.3, "sepal_width": 2.9, "petal_length": 6.3, "petal_width": 1.8, "species": 2}, {"sepal_length": 5.9, "sepal_width": 3.0, "petal_length": 5.1, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.8, "sepal_width": 2.8, "petal_length": 4.8, "petal_width": 1.4, "species": 1}, {"sepal_length": 5.4, "sepal_width": 3.7, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.1, "sepal_width": 3.8, "petal_length": 1.5, "petal_width": 0.3, "species": 0}, {"sepal_length": 5.6, "sepal_width": 2.8, "petal_length": 4.9, "petal_width": 2.0, "species": 2}, {"sepal_length": 6.3, "sepal_width": 2.5, "petal_length": 4.9, "petal_width": 1.5, "species": 1}, {"sepal_length": 5.1, "sepal_width": 3.8, "petal_length": 1.9, "petal_width": 0.4, "species": 0}, {"sepal_length": 5.2, "sepal_width": 2.7, "petal_length": 3.9, "petal_width": 1.4, "species": 1}, {"sepal_length": 7.9, "sepal_width": 3.8, "petal_length": 6.4, "petal_width": 2.0, "species": 2}, {"sepal_length": 6.4, "sepal_width": 3.2, "petal_length": 5.3, "petal_width": 2.3, "species": 2}, {"sepal_length": 6.4, "sepal_width": 2.7, "petal_length": 5.3, "petal_width": 1.9, "species": 2}, {"sepal_length": 6.0, "sepal_width": 2.7, "petal_length": 5.1, "petal_width": 1.6, "species": 1}, {"sepal_length": 5.0, "sepal_width": 3.3, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.9, "sepal_width": 3.1, "petal_length": 5.1, "petal_width": 2.3, "species": 2}, {"sepal_length": 5.4, "sepal_width": 3.9, "petal_length": 1.7, "petal_width": 0.4, "species": 0}, {"sepal_length": 6.5, "sepal_width": 3.2, "petal_length": 5.1, "petal_width": 2.0, "species": 2}, {"sepal_length": 5.0, "sepal_width": 2.0, "petal_length": 3.5, "petal_width": 1.0, "species": 1}, {"sepal_length": 6.7, "sepal_width": 3.0, "petal_length": 5.2, "petal_width": 2.3, "species": 2}, {"sepal_length": 6.4, "sepal_width": 2.8, "petal_length": 5.6, "petal_width": 2.2, "species": 2}, {"sepal_length": 5.0, "sepal_width": 3.5, "petal_length": 1.3, "petal_width": 0.3, "species": 0}, {"sepal_length": 6.4, "sepal_width": 3.1, "petal_length": 5.5, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.6, "sepal_width": 3.0, "petal_length": 4.4, "petal_width": 1.4, "species": 1}, {"sepal_length": 6.3, "sepal_width": 2.3, "petal_length": 4.4, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.1, "sepal_width": 2.9, "petal_length": 4.7, "petal_width": 1.4, "species": 1}, {"sepal_length": 5.9, "sepal_width": 3.2, "petal_length": 4.8, "petal_width": 1.8, "species": 1}, {"sepal_length": 5.5, "sepal_width": 2.4, "petal_length": 3.7, "petal_width": 1.0, "species": 1}, {"sepal_length": 4.8, "sepal_width": 3.4, "petal_length": 1.6, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.7, "sepal_width": 3.0, "petal_length": 4.2, "petal_width": 1.2, "species": 1}]
+
+    // Test Data
+    let test_data = [{"sepal_length": 5.5, "sepal_width": 4.2, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.4, "sepal_width": 3.9, "petal_length": 1.3, "petal_width": 0.4, "species": 0}, {"sepal_length": 5.0, "sepal_width": 3.5, "petal_length": 1.6, "petal_width": 0.6, "species": 0}, {"sepal_length": 7.2, "sepal_width": 3.0, "petal_length": 5.8, "petal_width": 1.6, "species": 2}, {"sepal_length": 7.0, "sepal_width": 3.2, "petal_length": 4.7, "petal_width": 1.4, "species": 1}, {"sepal_length": 6.3, "sepal_width": 2.7, "petal_length": 4.9, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.2, "sepal_width": 2.2, "petal_length": 4.5, "petal_width": 1.5, "species": 1}, {"sepal_length": 5.5, "sepal_width": 2.3, "petal_length": 4.0, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.3, "sepal_width": 2.5, "petal_length": 5.0, "petal_width": 1.9, "species": 2}, {"sepal_length": 4.9, "sepal_width": 3.0, "petal_length": 1.4, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.5, "sepal_width": 3.0, "petal_length": 5.2, "petal_width": 2.0, "species": 2}, {"sepal_length": 5.2, "sepal_width": 4.1, "petal_length": 1.5, "petal_width": 0.1, "species": 0}, {"sepal_length": 5.4, "sepal_width": 3.4, "petal_length": 1.5, "petal_width": 0.4, "species": 0}, {"sepal_length": 7.7, "sepal_width": 2.8, "petal_length": 6.7, "petal_width": 2.0, "species": 2}, {"sepal_length": 6.1, "sepal_width": 3.0, "petal_length": 4.9, "petal_width": 1.8, "species": 2}, {"sepal_length": 6.4, "sepal_width": 2.9, "petal_length": 4.3, "petal_width": 1.3, "species": 1}, {"sepal_length": 5.6, "sepal_width": 3.0, "petal_length": 4.1, "petal_width": 1.3, "species": 1}, {"sepal_length": 5.7, "sepal_width": 2.9, "petal_length": 4.2, "petal_width": 1.3, "species": 1}, {"sepal_length": 4.4, "sepal_width": 3.2, "petal_length": 1.3, "petal_width": 0.2, "species": 0}, {"sepal_length": 6.1, "sepal_width": 2.6, "petal_length": 5.6, "petal_width": 1.4, "species": 2}, {"sepal_length": 5.5, "sepal_width": 2.4, "petal_length": 3.8, "petal_width": 1.1, "species": 1}, {"sepal_length": 5.3, "sepal_width": 3.7, "petal_length": 1.5, "petal_width": 0.2, "species": 0}, {"sepal_length": 5.5, "sepal_width": 2.6, "petal_length": 4.4, "petal_width": 1.2, "species": 1}, {"sepal_length": 6.7, "sepal_width": 3.1, "petal_length": 4.4, "petal_width": 1.4, "species": 1}, {"sepal_length": 6.2, "sepal_width": 2.9, "petal_length": 4.3, "petal_width": 1.3, "species": 1}, {"sepal_length": 5.6, "sepal_width": 2.9, "petal_length": 3.6, "petal_width": 1.3, "species": 1}, {"sepal_length": 5.0, "sepal_width": 2.3, "petal_length": 3.3, "petal_width": 1.0, "species": 1}, {"sepal_length": 5.8, "sepal_width": 2.8, "petal_length": 5.1, "petal_width": 2.4, "species": 2}, {"sepal_length": 5.0, "sepal_width": 3.0, "petal_length": 1.6, "petal_width": 0.2, "species": 0}, {"sepal_length": 4.5, "sepal_width": 2.3, "petal_length": 1.3, "petal_width": 0.3, "species": 0}, {"sepal_length": 6.5, "sepal_width": 3.0, "petal_length": 5.8, "petal_width": 2.2, "species": 2}, {"sepal_length": 5.5, "sepal_width": 2.5, "petal_length": 4.0, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.5, "sepal_width": 3.0, "petal_length": 5.5, "petal_width": 1.8, "species": 2}, {"sepal_length": 5.8, "sepal_width": 2.7, "petal_length": 3.9, "petal_width": 1.2, "species": 1}, {"sepal_length": 6.8, "sepal_width": 3.0, "petal_length": 5.5, "petal_width": 2.1, "species": 2}, {"sepal_length": 5.7, "sepal_width": 2.8, "petal_length": 4.5, "petal_width": 1.3, "species": 1}, {"sepal_length": 6.7, "sepal_width": 3.1, "petal_length": 4.7, "petal_width": 1.5, "species": 1}, {"sepal_length": 5.9, "sepal_width": 3.0, "petal_length": 4.2, "petal_width": 1.5, "species": 1}]
+
+    // Load Training Data
+    const trainingData = tf.tensor2d(train_data.map(item => [
+      item.sepal_length, item.sepal_width, item.petal_length, item.petal_width
+    ]));
+
+    // Load Training Labels as One Hot Encoded Values
+    const trainingLabels = tf.tensor2d(train_data.map(item => [
+      item.species == 0 ? 1 : 0,
+      item.species == 1 ? 1 : 0,
+      item.species == 2 ? 1 : 0
+    ]));
+
+    // Load Testing Data
+    const testingData = tf.tensor2d(test_data.map(item => [
+      item.sepal_length, item.sepal_width, item.petal_length, item.petal_width
+    ]));
+
+    // Load Test Labels as One Hot Encoded Values
+    const testingLabels = tf.tensor2d(test_data.map(item => [
+      item.species == 0 ? 1 : 0,
+      item.species == 1 ? 1 : 0,
+      item.species == 2 ? 1 : 0
+    ]));
+
+    //console.log(testingLabels.toString());
+
+
+    // ******************************************
+    // Neural Network Architecture
+    // ******************************************
+    // Define Sequential Model
+    const model = tf.sequential()
+
+    // Input Layer to Hidden Layer
+    // Add a dense layer to the Model
+    model.add(tf.layers.dense({
+      // 4 items in Input
+      inputShape: [4],
+      // Sigmoid Activation: Good for classification problems
+      activation: "sigmoid",
+      // Hidden Layer Neurons: 5
+      units: 5
+    }));
+
+    // Hidden Layer to Output Layer
+    model.add(tf.layers.dense({
+      // Hidden Layer Neurons: 5
+      inputShape: [5],
+      // Sigmoid Activation Function
+      activation: "sigmoid",
+      // Number of Output Neurons: 3
+      units: 3
+    }));
+
+    // Compile the Model using MSE Loss and Adam Optimizer
+    model.compile({
+      loss: "meanSquaredError",
+      optimizer: tf.train.adam(0.01)
+    });
+
+    // Timekeeping
+    const startTime = Date.now()
+    let model_loss;
+
+    // Train the model
+    // history: Loss history object storing all loss history
+    model.fit(trainingData, trainingLabels, {epochs: 100})
+    .then((history) => {console.log("Model Loss: ", history.history.loss); model_loss =  history.history.loss[0]; predictLabels()});
+
+    function predictLabels(){
+      const y_pred = model.predict(testingData);
+      console.log("Model Predictions: ",y_pred.toString());
+      console.log("Model Loss: ", model_loss);
+      //console.dir("Predicted Index: ", y_pred.argMax(1).toString());
+      //const correctPredictions = tf.equal(y_pred.argMax(1), testingLabels.argMax(1));
+
+      // ************* To DO: Show all Predicted Values with Labels in a Table ***************
+      // var pred = Array.from(y_pred.dataSync());
+      // console.log("Length: ", pred[0]);
+      // var table = document.getElementById("table");
+      // var row = table.insertRow(0);
+      // var cell1 = row.insertCell(0);
+      // var cell2 = row.insertCell(1);
+      // cell1.innerHTML = "Model Prediction Values".bold();
+      // cell2.innerHTML = "Predicted Label".bold();
+      // // Fill in the table rows and columns with values
+      // for (let j = 0; j<y_pred.toString().length; j++){
+      //   var row = table.insertRow(1);
+      //   var cell1 = row.insertCell(0);
+      //   var cell2 = row.insertCell(1);
+      //   cell1.innerHTML = y_pred.toString()[j];
+      //   cell2.innerHTML = y_pred.argMax(1)[j].toString();
+      // }
+    }
+    </script>
+  </body>
+</html>
