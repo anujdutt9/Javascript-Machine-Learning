@@ -131,26 +131,26 @@
       const y_pred = model.predict(testingData);
       console.log("Model Predictions: ",y_pred.toString());
       console.log("Model Loss: ", model_loss);
-      //console.dir("Predicted Index: ", y_pred.argMax(1).toString());
       //const correctPredictions = tf.equal(y_pred.argMax(1), testingLabels.argMax(1));
 
-      // ************* To DO: Show all Predicted Values with Labels in a Table ***************
-      // var pred = Array.from(y_pred.dataSync());
-      // console.log("Length: ", pred[0]);
-      // var table = document.getElementById("table");
-      // var row = table.insertRow(0);
-      // var cell1 = row.insertCell(0);
-      // var cell2 = row.insertCell(1);
-      // cell1.innerHTML = "Model Prediction Values".bold();
-      // cell2.innerHTML = "Predicted Label".bold();
-      // // Fill in the table rows and columns with values
-      // for (let j = 0; j<y_pred.toString().length; j++){
-      //   var row = table.insertRow(1);
-      //   var cell1 = row.insertCell(0);
-      //   var cell2 = row.insertCell(1);
-      //   cell1.innerHTML = y_pred.toString()[j];
-      //   cell2.innerHTML = y_pred.argMax(1)[j].toString();
-      // }
+      // ************* To DO: Show Predicted Labels for Values in Table ***************
+      var pred = y_pred.dataSync();
+      var table = document.getElementById("table");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = "Model Prediction Values".bold();
+      cell2.innerHTML = "Predicted Label".bold();
+      // Fill in the table rows and columns with values
+      for (let j = 0; j<pred.length; j+=3){
+        console.log("j: ", j.toString());
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = "[ " + pred.slice(j,j+3) + " ]";
+        // Fix This Code
+        cell2.innerHTML = y_pred.argMax(1);
+      }
     }
     </script>
   </body>
