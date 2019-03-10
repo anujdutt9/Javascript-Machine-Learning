@@ -16,3 +16,4 @@
 |  6.   | Iris Plant Classification | Contains code to write a simple DNN for Iris Plant Classification problem. | Completed |
 |  7.   | Image Classification | Contains code for image classification in the Browser using pre-trained MobileNet model. | Ongoing |
 |  8.   | WebCam Image Classification | Contains code for image classification in the Browser on live video stream usign WebCam and pre-trained MobileNet model.  | Ongoing |
+|  9.   | Movie Reviews Sentiment Analysis | Contains code for reviews sentiment analysis and classification into positive and negative reviews using custom trained model. | Ongoing |
