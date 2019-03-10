@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Image Classifier using MobileNet.</title>
+    <!-- Load TensorFlow.js Library -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <!-- Load mobilenet model from TF.js -->
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <!-- Javascript code -->
+    <!-- <script src="script.js"></script> -->
+  </head>
+
+  <body>
+    <!-- Add an image that we will use to test -->
+    <!-- <img id="img" crossOrigin src="https://i.imgur.com/JlUvsxa.jpg" width=227 height=227/> -->
+    <p align="center" id="predictions">Model Prediction.</p>
+    <p align="center" id="predProbability">Model Prediction Probability.</p>
+    <video autoplay playsinline muted id="webcam" width="2000" height="800"></video>
+    <script type="text/javascript">
+      const webcamElement = document.getElementById('webcam');
+
+      async function setupWebcam() {
+        return new Promise((resolve, reject) => {
+          const navigatorAny = navigator;
+          navigator.getUserMedia = navigator.getUserMedia ||
+              navigatorAny.webkitGetUserMedia || navigatorAny.mozGetUserMedia ||
+              navigatorAny.msGetUserMedia;
+          if (navigator.getUserMedia) {
+            navigator.getUserMedia({video: true},
+              stream => {
+                webcamElement.srcObject = stream;
+                webcamElement.addEventListener('loadeddata',  () => resolve(), false);
+              },
+              error => reject());
+          } else {
+            reject();
+          }
+        });
+      }
+
+      async function app() {
+        console.log('Loading mobilenet..');
+
+        // Load the model.
+        net = await mobilenet.load();
+        console.log('Sucessfully loaded model');
+
+        await setupWebcam();
+        while (true) {
+          const result = await net.classify(webcamElement);
+
+          document.getElementById('predictions').innerText = result[0].className;
+          document.getElementById('predProbability').innerText = result[0].probability;
+
+          // Give some breathing room by waiting for the next animation frame to
+          // fire.
+          await tf.nextFrame();
+        }
+      }
+
+      app();
+    </script>
+  </body>
+</html>

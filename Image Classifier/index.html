@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Image Classifier using MobileNet.</title>
+    <!-- Load TensorFlow.js Library -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <!-- Load mobilenet model from TF.js -->
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <!-- Javascript code -->
+    <!-- <script src="script.js"></script> -->
+  </head>
+
+  <body>
+    <!-- Add an image that we will use to test -->
+    <img id="img" crossOrigin src="https://i.imgur.com/JlUvsxa.jpg" width=227 height=227/>
+
+    <script type="text/javascript">
+    // Define a Model Variable
+    let model;
+
+    // Function to Load the Model, get the image and make predictions
+    async function app() {
+      console.log('Loading mobilenet..');
+
+      // Load the model.
+      net = await mobilenet.load();
+      console.log('Sucessfully loaded model');
+
+      // Make a prediction through the model on our image.
+      const imgEl = document.getElementById('img');
+      const result = await net.classify(imgEl);
+      console.log(result);
+    }
+
+    app();
+    </script>
+  </body>
+</html>
