@@ -1,4 +1,4 @@
-# Converting Keras Model to TensorFlow.js Model
+# Converting Custom Keras Model to TensorFlow.js Model
 
 To convert the saved Keras model into TensorFlow.js model, run the following command:
 
