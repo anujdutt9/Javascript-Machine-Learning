@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Movie Reviews Sentiment Classifier.</title>
+    <!-- ********************************************************************* -->
+    <!-- Load TensorFlow.js from a load balanced CDN server provided by Google -->
+    <!-- ********************************************************************* -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.3/dist/tf.min.js"></script>
+    <!-- Script to know the status of TensorFlow.js i.e. if it has been loaded or not. -->
+    <script>
+      <!-- Test code to check if we have loaded TensorFlow.js library successfully or not. -->
+      var tfjsLoaded = 'Yes';
+      try{
+        tf;
+      }
+      catch{
+        tfjsLoaded = 'No';
+      }
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      // Function to Load the Model and Make Predictions
+      async function app() {
+        console.log('Loading Classification Model...');
+        // Define a Model Variable
+        const model = await tf.loadLayersModel("https://anujdutt9.github.io/Javascript-Machine-Learning/Movie-Reviews-Sentiment-Classification/tfjs_model/model.json");
+        console.log('Sucessfully loaded model...');
+      }
+
+      app();
+    </script>
+  </body>
+</html>
