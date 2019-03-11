@@ -9,35 +9,174 @@
     <!-- Load mobilenet model from TF.js -->
     <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
 
-    <!-- Bootstrap Library -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- Javascript code -->
     <!-- <script src="script.js"></script> -->
+
+    <!-- CSS Code -->
+    <style media="screen">
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Create three equal columns that sits next to each other */
+    .fix{
+       position:fixed;
+       bottom: 100px;
+       left: 5%;
+       width: 30%;
+     }
+
+     .fix1{
+        position:fixed;
+        bottom: 300px;
+        left: 50%;
+        width: 30%;
+      }
+
+      .fix2{
+         position:fixed;
+         bottom: 150px;
+         left: 50%;
+         width: 130%;
+       }
+
+     .column {
+      float: left;
+      width: 25%;
+      padding: 20px;
+      top: 200px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
   </head>
 
   <body>
     <h1 align="center">Image Classification using MobileNet Model with TensorFlow.js</h1>
 
-    <!-- Add an image that we will use to test -->
-    <img id="img1" onclick="imageSelected(this.id)" crossOrigin src="https://i.imgur.com/JlUvsxa.jpg" width=127 height=127/>
-    <img id="img2" onclick="imageSelected(this.id)" crossOrigin src="https://cdn.shopify.com/s/files/1/2549/2660/products/53cb029b057a2dc4c753969a3ce83ff4.jpg?v=1510851759" class="rounded float-left" alt="" width=127 height=127>
-    <img id="img3" onclick="imageSelected(this.id)" crossOrigin src="https://cdn.shopify.com/s/files/1/1045/4812/products/horizon_pp.jpg?v=1494631567" class="rounded float-right" alt="" width=127 height=127>
+    <!-- Show some Sample Images to Select from for Classification -->
+    <div class="row fix">
+      <div class="column">
+        <img id="1" onclick="imageSelected(this.id)" src="https://www.thelocal.de/userdata/images/article/fa6fd5014ccbd8f4392f716473ab6ff354f871505d9128820bbb0461cce1d645.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="2" onclick="imageSelected(this.id)" src="https://ae01.alicdn.com/kf/HTB1oLE3PFXXXXXaXFXXq6xXFXXXE/Rainbow-Kite-Without-Flying-Tools-Outdoor-Fun-Sports-Kite-Factory-Children-Triangle-Color-Kite-Easy-Fly.jpg_640x640.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="3" onclick="imageSelected(this.id)" src="https://cdn.britannica.com/79/196279-131-C6E53A14.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="4" onclick="imageSelected(this.id)" src="https://target.scene7.com/is/image/Target/GUEST_368e17ca-17ee-46a7-a1e6-97b867bcaa75?wid=488&hei=488&fmt=pjpeg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="5" onclick="imageSelected(this.id)" src="https://www.sciencenews.org/sites/default/files/2018/02/main/articles/020817_SM_hummingbird_main.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="6" onclick="imageSelected(this.id)" src="https://images.immediate.co.uk/volatile/sites/7/2018/01/white-feather-2-3ff1b13.jpg?quality=90&resize=620,413" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="7" onclick="imageSelected(this.id)" src="https://www.myamericanmarket.com/587/budweiser-beer-bottle.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="8" onclick="imageSelected(this.id)" src="https://images-na.ssl-images-amazon.com/images/I/81mjjQsYrwL._SL1500_.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="9" onclick="imageSelected(this.id)" src="https://images.homedepot-static.com/productImages/aa7add50-ca1a-454e-a9fc-a304378db3ea/svn/hdx-corn-brooms-502-64_1000.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="10" onclick="imageSelected(this.id)" src="https://ichef.bbci.co.uk/news/660/cpsprodpb/9174/production/_103163273_mediaitem103163270.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="11" onclick="imageSelected(this.id)" src="https://stonebridgegolfclub.net/wp-content/uploads/2018/03/used-golf-cart-rear-seat.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="12" onclick="imageSelected(this.id)" src="https://i0.wp.com/www.healthline.com/hlcmsresource/images/News/4876-monkeys-1296x728-header.jpg?w=1155" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="13" onclick="imageSelected(this.id)" src="https://www.storedj.com.au/Images/ProductImages/SHU-SM58.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="14" onclick="imageSelected(this.id)" src="https://www.tfltruck.com/wp-content/uploads/2017/09/2018-freightliner-cascadia-semi-tractor-trailer.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="15" onclick="imageSelected(this.id)" src="https://www.brighton.com/photos/product/giant/369560S198386/-/size-os.jpg" alt="Snow" width="100" height="100">
+      </div>
+      <div class="column">
+        <img id="16" onclick="imageSelected(this.id)" src="https://static1.squarespace.com/static/544c48e3e4b0393759955d4c/t/5afd8bf7758d467e1335c190/1527074521787/ray_ban_gray_blue.jpeg" alt="Snow" width="100" height="100">
+      </div>
+    </div>
 
-    <table class="no-border">
-    </table>
 
+    <!-- Show Selected Image here as a Large Image -->
+    <div class="row fix1">
+      <div class="column">
+        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="500" height="400">
+      </div>
+    </div>
+
+
+    <!-- Table to show Predicted Labels and their Probabilities -->
+    <div class="row fix2 overflow: auto;">
+      <div class="column">
+        <table>
+          <tr>
+            <th>Predicted Label</th>
+            <th>Prediction Probability</th>
+          </tr>
+          <tr>
+            <td>prediction_1</td>
+            <td>prediction_1_probability</td>
+          </tr>
+          <tr>
+            <td>prediction_2</td>
+            <td>prediction_2_probability</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- Javascript Code to Get the Image and Perform Classification -->
     <script type="text/javascript">
     // Function to get the id of the image selected by clicking on it.
     function imageSelected(image_id){
       console.log("Selected Image: " + image_id);
-      app(image_id);
+      document.getElementById("selectedImage").src = document.getElementById(image_id).src
+      if (image_id != " "){
+        app(image_id);
+      }
     }
 
     // Function to Load the Model, get the image and make predictions
     async function app(selectedImageID) {
       console.log('Loading mobilenet..');
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = document.getElementById(selectedImageID).src;
+      img.width = 224;
+      img.height = 224;
 
       // Load the model.
       net = await mobilenet.load();
@@ -45,7 +184,7 @@
 
       // Make a prediction through the model on our image.
       const imgEl = document.getElementById(selectedImageID);
-      const result = await net.classify(imgEl);
+      const result = await net.classify(img);
       console.log("Image: " + selectedImageID + "; Predictions: " + result.length);
       for (let j=0; j<result.length; j++){
         console.log("ClassName: " + result[j].className + "; " + "Probability: " + result[j].probability);
