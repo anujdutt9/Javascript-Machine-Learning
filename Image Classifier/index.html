@@ -18,32 +18,34 @@
       box-sizing: border-box;
     }
 
+    .img-div { height:100%; width:100%;}
+    .img { max-width:100% }
     /* Create three equal columns that sits next to each other */
     .fix{
        position:fixed;
-       bottom: 100px;
+       bottom: 30px;
        left: 5%;
        width: 30%;
      }
 
      .fix1{
         position:fixed;
-        bottom: 300px;
+        bottom: 150px;
         left: 50%;
         width: 30%;
       }
 
       .fix2{
-         position:fixed;
-         bottom: 150px;
+        position:fixed;
+         bottom: 20px;
          left: 50%;
-         width: 130%;
+         width: 145%;
        }
 
      .column {
       float: left;
       width: 25%;
-      padding: 20px;
+      padding: 5px;
       top: 200px;
     }
 
@@ -77,14 +79,17 @@
 
     <!-- Show some Sample Images to Select from for Classification -->
     <div class="row fix">
+      <!-- <div class="column">
+        <img id="1" onclick="imageSelected(this.id)" src="https://timedotcom.files.wordpress.com/2015/02/panda-cub.jpg" alt="Snow" width="100" height="100">
+      </div> -->
       <div class="column">
-        <img id="1" onclick="imageSelected(this.id)" src="https://www.thelocal.de/userdata/images/article/fa6fd5014ccbd8f4392f716473ab6ff354f871505d9128820bbb0461cce1d645.jpg" alt="Snow" width="100" height="100">
+        <img id="1" onclick="imageSelected(this.id)" src="https://timedotcom.files.wordpress.com/2015/02/panda-cub.jpg" alt="Snow" width="100" height="100">
       </div>
       <div class="column">
-        <img id="2" onclick="imageSelected(this.id)" src="https://ae01.alicdn.com/kf/HTB1oLE3PFXXXXXaXFXXq6xXFXXXE/Rainbow-Kite-Without-Flying-Tools-Outdoor-Fun-Sports-Kite-Factory-Children-Triangle-Color-Kite-Easy-Fly.jpg_640x640.jpg" alt="Snow" width="100" height="100">
+        <img id="2" onclick="imageSelected(this.id)" src="http://www.brookite.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/B/r/Brookite_Harlequin.jpg" alt="Snow" width="100" height="100">
       </div>
       <div class="column">
-        <img id="3" onclick="imageSelected(this.id)" src="https://cdn.britannica.com/79/196279-131-C6E53A14.jpg" alt="Snow" width="100" height="100">
+        <img id="3" onclick="imageSelected(this.id)" src="https://media.threatpost.com/wp-content/uploads/sites/103/2015/04/07004650/Great-Cannon.png" alt="Snow" width="100" height="100">
       </div>
       <div class="column">
         <img id="4" onclick="imageSelected(this.id)" src="https://target.scene7.com/is/image/Target/GUEST_368e17ca-17ee-46a7-a1e6-97b867bcaa75?wid=488&hei=488&fmt=pjpeg" alt="Snow" width="100" height="100">
@@ -131,13 +136,13 @@
     <!-- Show Selected Image here as a Large Image -->
     <div class="row fix1">
       <div class="column">
-        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="500" height="400">
+        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="450" height="350">
       </div>
     </div>
 
 
     <!-- Table to show Predicted Labels and their Probabilities -->
-    <div class="row fix2 overflow: auto;">
+    <!-- <div class="row fix2 overflow: auto;">
       <div class="column">
         <table>
           <tr>
@@ -154,8 +159,11 @@
           </tr>
         </table>
       </div>
-    </div>
+    </div> -->
 
+   <div id="prediction" class="row fix2" style="height:120px;width:450px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+     Predicted Labels and their Probabilities appears here.
+  </div>
 
     <!-- Javascript Code to Get the Image and Perform Classification -->
     <script type="text/javascript">
@@ -173,7 +181,7 @@
       console.log('Loading mobilenet..');
 
       const img = new Image();
-      img.crossOrigin = "anonymous";
+      img.crossOrigin = "Anonymous";
       img.src = document.getElementById(selectedImageID).src;
       img.width = 224;
       img.height = 224;
@@ -182,13 +190,17 @@
       net = await mobilenet.load();
       console.log('Sucessfully loaded model');
 
+      var text = " ";
+
       // Make a prediction through the model on our image.
       const imgEl = document.getElementById(selectedImageID);
       const result = await net.classify(img);
       console.log("Image: " + selectedImageID + "; Predictions: " + result.length);
       for (let j=0; j<result.length; j++){
         console.log("ClassName: " + result[j].className + "; " + "Probability: " + result[j].probability);
+        text += result[j].className + ": " + result[j].probability + "; \n"
       }
+      document.getElementById("prediction").innerHTML = text;
     }
     </script>
   </body>
