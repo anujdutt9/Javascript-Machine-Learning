@@ -186,7 +186,7 @@
       console.log("Image: " + selectedImageID + "; Predictions: " + result.length);
       for (let j=0; j<result.length; j++){
         console.log("ClassName: " + result[j].className + "; " + "Probability: " + result[j].probability);
-        predText += "The model is " + Math.round(result[j].probability*100) + "% sure that the image contains a " + result[j].className + ". <br/><br/>"
+        predText += "The model is " + Math.round(result[j].probability*100).toString().bold() + "% sure that the image contains a " + result[j].className.bold() + ". <br/><br/>"
       }
        document.getElementById("prediction").innerHTML = predText;
     }
