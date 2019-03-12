@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Image Classifier using MobileNet.</title>
+    <title>Image Classification using TensorFlow.js.</title>
     <!-- Load TensorFlow.js Library -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
     <!-- Load mobilenet model from TF.js -->
@@ -18,37 +18,41 @@
       box-sizing: border-box;
     }
 
-    .img-div { height:100%; width:100%;}
-    .img { max-width:100% }
     /* Create three equal columns that sits next to each other */
     .fix{
        position:fixed;
-       bottom: 5%;
-       left: 13%;
-       width: 80%;
+       top: 20%;
+       bottom: 20%;
+       left: 5%;
+       width: 30%;
+       /* overflow: hidden; */
      }
 
      .fix1{
         position:fixed;
+        top: 10%;
         bottom: 30%;
-        left: 13%;
+        left: 50%;
         width: 30%;
+        /* overflow: hidden; */
       }
 
       .fix2{
-        position:fixed;
-         bottom: 40%;
-         left: 55%;
-         width: 200%;
+         position:fixed;
+         top: 72%;
+         bottom: 15%;
+         left: 51%;
+         width: 37%;
+         height: 25%;
+         /* overflow: hidden; */
        }
 
      .column {
       float: left;
-      width: 12%;
-      padding: 1%;
-      top: 10%;
-      margin-left: auto;
-      margin-right: auto;
+      width: 25%;
+      padding: 20px;
+      top: 200px;
+      /* overflow: hidden; */
     }
 
     /* Clearfix (clear floats) */
@@ -56,9 +60,7 @@
       content: "";
       clear: both;
       display: table;
-      margin-left: auto;
-      margin-right: auto;
-      /* padding: 5px; */
+      /* overflow: hidden; */
     }
 
     table {
@@ -141,14 +143,15 @@
     <!-- Show Selected Image here as a Large Image -->
     <div class="row fix1">
       <div class="column">
-        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="600" height="500"
+        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="600" height="500">
       </div>
     </div>
 
 
-   <div id="prediction" class="row fix2" style="height:310px;width:500px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-     <br/> <br/> <br/> <br/>Predicted Labels and their Probabilities appears here.<br/><br/> Click on an image below to get started.
-  </div>
+    <div id="prediction" class="row fix2" style="border:0px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+     <br/> <br/> Predicted Labels and their Probabilities appears here.<br/><br/> Click on an image below to get started.
+   </div>
+
 
     <!-- Javascript Code to Get the Image and Perform Classification -->
     <script type="text/javascript">
@@ -166,7 +169,7 @@
       console.log('Loading mobilenet..');
 
       const img = new Image();
-      img.crossOrigin = "Anonymous";
+      img.crossOrigin = "anonymous";
       img.src = document.getElementById(selectedImageID).src;
       img.width = 224;
       img.height = 224;
@@ -175,7 +178,7 @@
       net = await mobilenet.load();
       console.log('Sucessfully loaded model');
 
-      var text = " ";
+      var predText = " ";
 
       // Make a prediction through the model on our image.
       const imgEl = document.getElementById(selectedImageID);
@@ -183,9 +186,9 @@
       console.log("Image: " + selectedImageID + "; Predictions: " + result.length);
       for (let j=0; j<result.length; j++){
         console.log("ClassName: " + result[j].className + "; " + "Probability: " + result[j].probability);
-        text += "The model is " + Math.round(result[j].probability*100) + "% sure that it's a " + result[j].className + ". <br/><br/>"
+        predText += "The model is " + Math.round(result[j].probability*100) + "% sure that the image contains a " + result[j].className + ". <br/><br/>"
       }
-      document.getElementById("prediction").innerHTML = text;
+       document.getElementById("prediction").innerHTML = predText;
     }
     </script>
   </body>
