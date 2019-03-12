@@ -14,6 +14,14 @@
 
     <!-- CSS Code -->
     <style media="screen">
+    html, body, {
+        position:fixed;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -34,6 +42,7 @@
         bottom: 30%;
         left: 50%;
         width: 30%;
+        height: 30%;
         /* overflow: hidden; */
       }
 
@@ -143,7 +152,7 @@
     <!-- Show Selected Image here as a Large Image -->
     <div class="row fix1">
       <div class="column">
-        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="600" height="500">
+        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width= 500px height= 450px>
       </div>
     </div>
 
@@ -158,7 +167,7 @@
     // Function to get the id of the image selected by clicking on it.
     function imageSelected(image_id){
       console.log("Selected Image: " + image_id);
-      document.getElementById("selectedImage").src = document.getElementById(image_id).src
+      document.getElementById("selectedImage").src = document.getElementById(image_id).src;
       if (image_id != " "){
         app(image_id);
       }
