@@ -23,21 +23,21 @@
     /* Create three equal columns that sits next to each other */
     .fix{
        position:fixed;
-       bottom: 5px;
+       bottom: 5%;
        left: 13%;
        width: 80%;
      }
 
      .fix1{
         position:fixed;
-        bottom: 200px;
+        bottom: 30%;
         left: 13%;
         width: 30%;
       }
 
       .fix2{
         position:fixed;
-         bottom: 220px;
+         bottom: 40%;
          left: 55%;
          width: 200%;
        }
@@ -45,8 +45,10 @@
      .column {
       float: left;
       width: 12%;
-      padding: 5px;
-      top: 200px;
+      padding: 1%;
+      top: 10%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Clearfix (clear floats) */
@@ -54,7 +56,9 @@
       content: "";
       clear: both;
       display: table;
-      padding: 5px;
+      margin-left: auto;
+      margin-right: auto;
+      /* padding: 5px; */
     }
 
     table {
@@ -76,7 +80,7 @@
   </head>
 
   <body>
-    <h1 align="center">Image Classification using MobileNet Model with TensorFlow.js</h1>
+    <h1 align="center">Image Classification using TensorFlow.js</h1>
 
     <!-- Show some Sample Images to Select from for Classification -->
     <div class="row fix">
@@ -137,13 +141,13 @@
     <!-- Show Selected Image here as a Large Image -->
     <div class="row fix1">
       <div class="column">
-        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="450" height="310"
+        <img id="selectedImage" src="http://savings.gov.pk/wp-content/plugins/ldd-directory-lite/public/images/noimage.png" alt="Snow" width="600" height="500"
       </div>
     </div>
 
 
-   <div id="prediction" class="row fix2" style="height:310px;width:400px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
-     Predicted Labels and their Probabilities appears here.
+   <div id="prediction" class="row fix2" style="height:310px;width:500px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+     <br/> <br/> <br/> <br/>Predicted Labels and their Probabilities appears here.<br/><br/> Click on an image below to get started.
   </div>
 
     <!-- Javascript Code to Get the Image and Perform Classification -->
