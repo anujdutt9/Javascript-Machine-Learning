@@ -14,6 +14,6 @@
 |  4.   | Memory Management | Contains code to show how to do memory management to avoid memory leaks and have a low memory footprint. | Completed |
 |  5.   | Linear Regression | Contains code to show how to do Linear Regression with interactive visualizations of best-fit line. | Completed |
 |  6.   | Iris Plant Classification | Contains code to write a simple DNN for Iris Plant Classification problem. | Completed |
-|  7.   | Image Classification | Contains code for image classification in the Browser using pre-trained MobileNet model. | Ongoing |
+|  7.   | Image Classification | Contains code for image classification in the Browser using pre-trained MobileNet model. | Completed |
 |  8.   | WebCam Image Classification | Contains code for image classification in the Browser on live video stream usign WebCam and pre-trained MobileNet model.  | Ongoing |
 |  9.   | Movie Reviews Sentiment Analysis | Contains code for reviews sentiment analysis and classification into positive and negative reviews using custom trained model. | Ongoing |
