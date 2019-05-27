@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Audio Scene Classification</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+    <!-- <script type="text/javascript" src="p5.sound.js"></script> -->
+  </head>
+  <body>
+    <p>Hello World...</p>
+
+    <script>
+      // variable to define the song/audio file name
+      var song;
+
+      // Function to load files that you want to have before setup function
+      function preload(){
+        // Load audio file using P5.js built in function
+        song = loadSound("sample_audio.mp3", soundReady, null, whileLoading);
+        console.log("Done loading file...");
+      }
+
+
+      // Setup function to initialize everything
+      function setup(){
+        // Create a blank canvas with dimensions (x,y)
+        createCanvas(250,250);
+        song.setVolume(0.5);
+        song.play();
+        console.log("Playing audio file...");
+      }
+
+      // Draw Function: loops over and over to draw something on canvas defined above
+      function draw(){
+        background(0);
+      }
+
+      function whileLoading(total) {
+        print('loaded: ' + total);
+      }
+
+      function soundReady() {
+        print('sound is ready')
+      }
+    </script>
+  </body>
+</html>
