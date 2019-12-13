@@ -15,9 +15,9 @@
 |  5.   | Linear Regression | Contains code to show how to do Linear Regression with interactive visualizations of best-fit line. | Completed |
 |  6.   | Iris Plant Classification | Contains code to write a simple DNN for Iris Plant Classification problem. | Completed |
 |  7.   | Image Classification | Contains code for image classification in the Browser using pre-trained MobileNet model. | Completed |
-|  8.   | WebCam Image Classification | Contains code for image classification in the Browser on live video stream usign WebCam and pre-trained MobileNet model.  | Ongoing |
+|  8.   | WebCam Image Classification | Contains code for image classification in the Browser on live video stream usign WebCam and pre-trained MobileNet model.  | Completed |
 |  9.   | Movie Reviews Sentiment Analysis | Contains code for reviews sentiment analysis and classification into positive and negative reviews using custom trained model. | Ongoing |
-|  10.  | Text Sentiment Analysis | Contains code for nearby restaurant reviews sentiment analysis for a particular dish. | Ongoing |
+|  10.  | Text Sentiment Analysis | Contains code for nearby restaurant reviews sentiment analysis for a particular dish. | Completed |
 |  11.  | Face Emotion Detection | Contains code for detecting emotion of a face. | Ongoing |
 |  12.  | Audio Sentiment Analysis | Contains code for detecting sentiment of speech in an audio. | Ongoing |
 |  13.  | Audio Sentiment Analysis using Transfer Learning | Contains code for performing transfer learning to improve the predictions of the existing model for detecting sentiment of speech in an audio. | Ongoing |
