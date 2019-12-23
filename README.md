@@ -22,3 +22,4 @@
 |  12.  | Audio Sentiment Analysis | Contains code for detecting sentiment of speech in an audio. | Ongoing |
 |  13.  | Audio Sentiment Analysis using Transfer Learning | Contains code for performing transfer learning to improve the predictions of the existing model for detecting sentiment of speech in an audio. | Ongoing |
 |  14.  | Training a Speech Emotion Detection Model | Contains code to train a custom Speech Emotion Detection model using TF.js. | Ongoing |
+|  15.  | Training a Neural Network in the browser for Wisconsin Cancer Diagnosis dataset classification. | Completed |
