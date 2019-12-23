@@ -24,3 +24,4 @@
 |  14.  | Training a Speech Emotion Detection Model | Contains code to train a custom Speech Emotion Detection model using TF.js. | Ongoing |
 |  15. | Wisconsin-Cancer-Classification | Training a Neural Network in the browser for Wisconsin Cancer Diagnosis dataset classification. | Completed |
 |  16. | Fashion MNIST Classification | Training a Convolutional Neural Network in the browser for classiying Fashion MNIST Images. | Completed |
+|  17.  | TFJS Model Conversion | Sample worflow showing model training in TF/Keras and saved model conversion to TF.js model. | Completed |
