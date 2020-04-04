@@ -25,3 +25,8 @@
 |  15. | Wisconsin-Cancer-Classification | Training a Neural Network in the browser for Wisconsin Cancer Diagnosis dataset classification. | Completed |
 |  16. | Fashion MNIST Classification | Training a Convolutional Neural Network in the browser for classiying Fashion MNIST Images. | Completed |
 |  17.  | TFJS Model Conversion | Sample worflow showing model training in TF/Keras and saved model conversion to TF.js model. | Completed |
+|  18.  | Loading Saved Model | Loading saved model from URL/directory in TFjs. | Completed |
+|  19.  | MNIST Classification | MNIST Model training and classification using TFjs. | Completed |
+|  20.  | MobileNet Image Classification | Image Classification using MobileNet pre-trained model. | Completed |
+|  21.  | Text Toxicity Prediction | Text Toxicity Prediction using pre-trained model. | Completed |
+|  22.  | Transfer Learning in the Browser | Training a Rock, Paper, Scissors, Spock, Lizard classification model using Transfer Learning in the browser. | Completed |
