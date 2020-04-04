@@ -1,0 +1,28 @@
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>   
+<script>
+    async function run(){
+        // Existing Model Path
+        const MODEL_URL = 'http://127.0.0.1:8887/model.json';
+        
+        // Load Existing Model from URL/Directory
+        const model = await tf.loadLayersModel(MODEL_URL);
+        
+        // Print Model Summary
+        console.log(model.summary());
+        
+        // Sample Input Data
+        const input = tf.tensor2d([10.0], [1,1]);
+        
+        // Make prediction on sample input data
+        const result = model.predict(input);
+        
+        // Show Model Prediction
+        alert(result)
+	}
+	run();
+</script>
+</head> 
+<body></body>   
+</html>

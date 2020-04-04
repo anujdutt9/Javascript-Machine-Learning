@@ -1,0 +1,31 @@
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+<script>
+    // Model Threshold
+    const threshold = 0.9;
+
+    // Load Toxicity Model from URL and Make Predictions
+    toxicity.load(threshold).then(model => {
+        // Sample Input Sentence
+        const sentences = ['you suck'];
+        
+        // Model Prediction for sample sentence
+        model.classify(sentences).then(predictions => {
+            
+            // Print Model Predictions
+            console.log(predictions);
+            for(i=0; i<7; i++){
+                if(predictions[i].results[0].match){
+                    console.log(predictions[i].label + 
+                                " was found with probability of " + 
+                                predictions[i].results[0].probabilities[1]);                
+                }  
+            }
+        });
+    });
+</script> 
+</head>
+<body></body>
+</html>    
